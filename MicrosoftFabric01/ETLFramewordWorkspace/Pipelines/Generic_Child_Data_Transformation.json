@@ -1,0 +1,414 @@
+{
+    "name": "Generic_Child_Data_Transformation",
+    "objectId": "bbc3057f-a72f-4643-a5f0-6f99d05fa9e2",
+    "properties": {
+        "activities": [
+            {
+                "name": "GetallJobs",
+                "type": "Script",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "scripts": [
+                        {
+                            "type": "Query",
+                            "text": {
+                                "value": "select * from config_pipelineparameterconfiguration\nwhere ExecutionOrder=@{pipeline().parameters.pEXECUTION_ORDER}",
+                                "type": "Expression"
+                            }
+                        }
+                    ],
+                    "scriptBlockExecutionTimeout": "02:00:00"
+                },
+                "externalReferences": {
+                    "connection": "5caf16c0-9961-4e8d-9721-31ccbe08dd2b"
+                }
+            },
+            {
+                "name": "IterateThroughAllJobs",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "GetallJobs",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('GetallJobs').output.resultSets[0].rows",
+                        "type": "Expression"
+                    },
+                    "isSequential": true,
+                    "activities": [
+                        {
+                            "name": "ExecuteTheJobs",
+                            "type": "TridentNotebook",
+                            "dependsOn": [
+                                {
+                                    "activity": "SetTableStartTime",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "typeProperties": {
+                                "notebookId": "b71f3849-4e4b-4881-b0a7-53e3bf9085bb",
+                                "workspaceId": "ed48e609-f66b-4cc4-832c-588ba37d0047",
+                                "parameters": {
+                                    "DestinationTableName": {
+                                        "value": {
+                                            "value": "@concat(toLower(item().DestinationLayer),'_',toLower(item().DestinationTableName))",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "MasterRunId": {
+                                        "value": {
+                                            "value": "@pipeline().parameters.pMASTER_PIPELINE_RUNID",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "NumofRetry": {
+                                        "value": {
+                                            "value": "@string(activity('GetallJobs').output.resultSets[0].rowCount)",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "KeyAttrName": {
+                                        "value": {
+                                            "value": "@item().KeyAttrName",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "DestinationPathNTable": {
+                                        "value": {
+                                            "value": "@concat(item().DestinationPath,item().DestinationTableName)",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "TransfScriptPath": {
+                                        "value": {
+                                            "value": "@concat(item().TransfScriptPath,item().DestinationLayer,'_',toLower(item().DestinationTableName),'.sql')",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "TransformationType": {
+                                        "value": {
+                                            "value": "@item().TransformationType",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "DatasetFailureLogging",
+                            "type": "TridentNotebook",
+                            "dependsOn": [
+                                {
+                                    "activity": "ExecuteTheJobs",
+                                    "dependencyConditions": [
+                                        "Failed"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "typeProperties": {
+                                "notebookId": "d64f85fd-3dc2-4fb1-a81e-409fc4aa4c38",
+                                "workspaceId": "ed48e609-f66b-4cc4-832c-588ba37d0047",
+                                "parameters": {
+                                    "Pipeline_id": {
+                                        "value": {
+                                            "value": "@item().PipelineId",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Pipeline_Name": {
+                                        "value": {
+                                            "value": "@item().PipelineName",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Pipeline_RunId": {
+                                        "value": {
+                                            "value": "@pipeline().parameters.pMASTER_PIPELINE_RUNID",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Start_Time": {
+                                        "value": {
+                                            "value": "@variables('TableStartTime')",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "End_Time": {
+                                        "value": {
+                                            "value": "@utcNow()",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Status": {
+                                        "value": {
+                                            "value": "F",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Error_Message": {
+                                        "value": {
+                                            "value": "@activity('ExecuteTheJobs').output.result.error.evalue",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "TruncateCurrentLogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "InsertCurrentLogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "InsertEXELogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "InsertDTLogInd": {
+                                        "value": {
+                                            "value": "1",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "UpdateCurrentLogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Dataset_Id": {
+                                        "value": {
+                                            "value": "@string(item().Id)",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Dataset_Name": {
+                                        "value": {
+                                            "value": "@item().DestinationTableName",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "SetTableStartTime",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "policy": {
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "typeProperties": {
+                                "variableName": "TableStartTime",
+                                "value": {
+                                    "value": "@utcNow()",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "DatasetSuccessLogging",
+                            "type": "TridentNotebook",
+                            "dependsOn": [
+                                {
+                                    "activity": "ExecuteTheJobs",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "typeProperties": {
+                                "notebookId": "d64f85fd-3dc2-4fb1-a81e-409fc4aa4c38",
+                                "workspaceId": "ed48e609-f66b-4cc4-832c-588ba37d0047",
+                                "parameters": {
+                                    "Pipeline_id": {
+                                        "value": {
+                                            "value": "@item().PipelineId",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Pipeline_Name": {
+                                        "value": {
+                                            "value": "@item().PipelineName",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Pipeline_RunId": {
+                                        "value": {
+                                            "value": "@pipeline().parameters.pMASTER_PIPELINE_RUNID",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Start_Time": {
+                                        "value": {
+                                            "value": "@variables('TableStartTime')",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "End_Time": {
+                                        "value": {
+                                            "value": "@utcNow()",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Status": {
+                                        "value": {
+                                            "value": "S",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Error_Message": {
+                                        "value": {
+                                            "value": "No error",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "TruncateCurrentLogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "InsertCurrentLogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "InsertEXELogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "InsertDTLogInd": {
+                                        "value": {
+                                            "value": "1",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "UpdateCurrentLogInd": {
+                                        "value": {
+                                            "value": "0",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "Dataset_Id": {
+                                        "value": {
+                                            "value": "@string(item().Id)",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    },
+                                    "DatasetName": {
+                                        "value": {
+                                            "value": "@item().DestinationTableName",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "pMASTER_PIPELINE_RUNID": {
+                "type": "string"
+            },
+            "pEXECUTION_ORDER": {
+                "type": "string"
+            },
+            "pPIPELINE_ID": {
+                "type": "string"
+            },
+            "pPIPELINENAME": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "TableStartTime": {
+                "type": "String"
+            }
+        },
+        "annotations": [],
+        "lastModifiedByObjectId": "aaea08fe-ada3-4d0d-a7a2-27c925cd651e",
+        "lastPublishTime": "2023-12-26T11:44:11Z"
+    }
+}
