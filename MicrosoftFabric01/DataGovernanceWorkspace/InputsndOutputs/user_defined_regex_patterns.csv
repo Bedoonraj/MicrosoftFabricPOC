@@ -1,0 +1,7 @@
+BusinessTerm,RegexPattern
+Gender,^[MF]$
+Year,^d{4}$
+StateCode,^[A-Z]{2}$
+ZipCode,^d{9}$
+PhoneNumber,^d{10}$
+Indicator,^[YN]$

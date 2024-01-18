@@ -1,0 +1,101 @@
+DatabaseName,TableName,ColumnName,TechnicalDataType,Businessterm,MatchPercentage,TotalCount,TotalDistinctCount,NullorBlankCount
+clinician_services,Clinician_Demographic_Information,NPI,int,NULL,0,100,41,0
+clinician_services,Clinician_Demographic_Information,Ind_PAC_ID,bigint,NULL,0,100,41,0
+clinician_services,Clinician_Demographic_Information,Ind_enrl_ID,string,NULL,0,100,43,0
+clinician_services,Clinician_Demographic_Information,Provider Last Name,string,StateCode,2,100,40,0
+clinician_services,Clinician_Demographic_Information,Provider First Name,string,NULL,0,100,37,0
+clinician_services,Clinician_Demographic_Information,Provider Middle Name,string,StateCode,11,100,21,34
+clinician_services,Clinician_Demographic_Information,suff,string,NULL,0,100,3,90
+clinician_services,Clinician_Demographic_Information,gndr,string,Gender,100,100,2,0
+clinician_services,Clinician_Demographic_Information,Cred,string,StateCode,90,100,7,7
+clinician_services,Clinician_Demographic_Information,Med_sch,string,NULL,0,100,24,0
+clinician_services,Clinician_Demographic_Information,Grd_yr,int,Year,100,100,22,0
+clinician_services,Clinician_Demographic_Information,pri_spec,string,NULL,0,100,25,0
+clinician_services,Clinician_Demographic_Information,sec_spec_1,string,NULL,0,100,7,73
+clinician_services,Clinician_Demographic_Information,sec_spec_2,string,NULL,0,100,1,100
+clinician_services,Clinician_Demographic_Information,sec_spec_3,string,NULL,0,100,1,100
+clinician_services,Clinician_Demographic_Information,sec_spec_4,string,NULL,0,100,1,100
+clinician_services,Clinician_Demographic_Information,sec_spec_all,string,NULL,0,100,7,73
+clinician_services,Clinician_Demographic_Information,Telehlth,string,NULL,0,100,1,100
+clinician_services,Clinician_Demographic_Information,Facility Name,string,NULL,0,100,49,7
+clinician_services,Clinician_Demographic_Information,org_pac_id,bigint,NULL,0,100,49,7
+clinician_services,Clinician_Demographic_Information,num_org_mem,int,NULL,0,100,46,7
+clinician_services,Clinician_Demographic_Information,adr_ln_1,string,NULL,0,100,97,0
+clinician_services,Clinician_Demographic_Information,adr_ln_2,string,NULL,0,100,23,75
+clinician_services,Clinician_Demographic_Information,ln_2_sprs,string,NULL,0,100,1,100
+clinician_services,Clinician_Demographic_Information,City/Town,string,NULL,0,100,63,0
+clinician_services,Clinician_Demographic_Information,State,string,StateCode,100,100,26,0
+clinician_services,Clinician_Demographic_Information,ZIP Code,string,NULL,0,100,90,0
+clinician_services,Clinician_Demographic_Information,Telephone Number,bigint,NULL,0,100,77,9
+clinician_services,Clinician_Demographic_Information,ind_assgn,string,Indicator,100,100,2,0
+clinician_services,Clinician_Demographic_Information,grp_assgn,string,Indicator,100,100,2,0
+clinician_services,Clinician_Demographic_Information,adrs_id,string,NULL,0,100,98,0
+clinician_services,Facility_Affiliation,NPI,int,NULL,0,100,48,0
+clinician_services,Facility_Affiliation,Ind_PAC_ID,bigint,NULL,0,100,48,0
+clinician_services,Facility_Affiliation,Provider Last Name,string,NULL,0,100,48,0
+clinician_services,Facility_Affiliation,Provider First Name,string,NULL,0,100,47,0
+clinician_services,Facility_Affiliation,Provider Middle Name,string,Gender,16,100,16,44
+clinician_services,Facility_Affiliation,suff,string,StateCode,1,100,2,99
+clinician_services,Facility_Affiliation,facility_type,string,NULL,0,100,5,0
+clinician_services,Facility_Affiliation,Facility Affiliations Certification Number,string,NULL,0,100,96,0
+clinician_services,Facility_Affiliation,Facility Type Certification Number,int,NULL,0,100,2,99
+clinician_services,ec_public_reporting,NPI,int,NULL,0,100,100,0
+clinician_services,ec_public_reporting, Ind_PAC_ID,bigint,NULL,0,100,100,0
+clinician_services,ec_public_reporting, Provider Last Name,string,StateCode,1,100,99,0
+clinician_services,ec_public_reporting, Provider First Name,string,NULL,0,100,84,0
+clinician_services,ec_public_reporting, APM_affl_1,string,NULL,0,100,4,81
+clinician_services,ec_public_reporting, APM_affl_2,string,StateCode,1,100,2,99
+clinician_services,ec_public_reporting, APM_affl_3,string,NULL,0,100,1,100
+clinician_services,ec_public_reporting, measure_cd,string,NULL,0,100,1,0
+clinician_services,ec_public_reporting, measure_title,string,NULL,0,100,1,0
+clinician_services,ec_public_reporting, invs_msr,string,Indicator,100,100,1,0
+clinician_services,ec_public_reporting, attestation_value,string,Indicator,100,100,1,0
+clinician_services,ec_public_reporting, prf_rate,int,NULL,0,100,1,100
+clinician_services,ec_public_reporting, patient_count,int,NULL,0,100,1,100
+clinician_services,ec_public_reporting, star_value,int,NULL,0,100,1,100
+clinician_services,ec_public_reporting, five_star_benchmark,int,NULL,0,100,1,100
+clinician_services,ec_public_reporting, collection_type,string,NULL,0,100,1,100
+clinician_services,ec_public_reporting, CCXP_ind,string,Indicator,100,100,1,0
+clinician_services,ec_score_file,NPI,int,NULL,0,100,100,0
+clinician_services,ec_score_file, Org_PAC_ID,bigint,NULL,0,100,1,100
+clinician_services,ec_score_file, Provider Last Name,string,StateCode,2,100,97,0
+clinician_services,ec_score_file, Provider First Name,string,NULL,0,100,79,0
+clinician_services,ec_score_file, source,string,NULL,0,100,3,0
+clinician_services,ec_score_file, Facility-based scoring Certification number,string,NULL,0,100,1,100
+clinician_services,ec_score_file, Facility Name,string,NULL,0,100,1,100
+clinician_services,ec_score_file, Quality_category_score,double,NULL,0,100,19,76
+clinician_services,ec_score_file, PI_category_score,double,NULL,0,100,16,81
+clinician_services,ec_score_file, IA_category_score,int,NULL,0,100,4,73
+clinician_services,ec_score_file, Cost_category_score,string,NULL,0,100,1,0
+clinician_services,ec_score_file, final_MIPS_score_without_CPB,double,NULL,0,100,25,0
+clinician_services,ec_score_file, final_MIPS_score,double,NULL,0,100,16,0
+clinician_services,grp_public_reporting,Facility Name,string,NULL,0,100,100,0
+clinician_services,grp_public_reporting, org_PAC_ID,bigint,NULL,0,100,100,0
+clinician_services,grp_public_reporting, ACO_ID_1,string,NULL,0,100,3,98
+clinician_services,grp_public_reporting, ACO_nm_1,string,NULL,0,100,3,98
+clinician_services,grp_public_reporting, ACO_ID_2,string,NULL,0,100,1,100
+clinician_services,grp_public_reporting, ACO_nm_2,string,NULL,0,100,1,100
+clinician_services,grp_public_reporting, measure_cd,string,NULL,0,100,1,0
+clinician_services,grp_public_reporting, measure_title,string,NULL,0,100,1,0
+clinician_services,grp_public_reporting, invs_msr,string,Indicator,100,100,1,0
+clinician_services,grp_public_reporting, attestation_value,string,Indicator,100,100,1,0
+clinician_services,grp_public_reporting, prf_rate,int,NULL,0,100,1,100
+clinician_services,grp_public_reporting, patient_count,int,NULL,0,100,1,100
+clinician_services,grp_public_reporting, star_value,int,NULL,0,100,1,100
+clinician_services,grp_public_reporting, five_star_benchmark,int,NULL,0,100,1,100
+clinician_services,grp_public_reporting, collection_type,string,NULL,0,100,1,100
+clinician_services,grp_public_reporting, CCXP_ind,string,Indicator,100,100,1,0
+clinician_services,Clinician_Utilization,NPI,int,NULL,0,100,22,0
+clinician_services,Clinician_Utilization, Ind_PAC_ID,bigint,NULL,0,100,22,0
+clinician_services,Clinician_Utilization, Provider Last Name,string,NULL,0,100,22,0
+clinician_services,Clinician_Utilization, Provider First Name,string,NULL,0,100,22,0
+clinician_services,Clinician_Utilization, spec,string,NULL,0,100,16,0
+clinician_services,Clinician_Utilization, State,string,StateCode,100,100,11,0
+clinician_services,Clinician_Utilization, hcpcs_code,string,NULL,0,100,68,0
+clinician_services,Clinician_Utilization, hcpcs_description,string,NULL,0,100,66,0
+clinician_services,Clinician_Utilization, line_srvc_cnt,int,NULL,0,100,75,0
+clinician_services,Clinician_Utilization, bene_cnt,int,NULL,0,100,62,0
+clinician_services,grp_public_reporting_cahps,Facility Name,string,NULL,0,100,84,0
+clinician_services,grp_public_reporting_cahps, org_PAC_ID,bigint,NULL,0,100,84,0
+clinician_services,grp_public_reporting_cahps, measure_cd,string,NULL,0,100,2,0
+clinician_services,grp_public_reporting_cahps, measure_title,string,NULL,0,100,2,0

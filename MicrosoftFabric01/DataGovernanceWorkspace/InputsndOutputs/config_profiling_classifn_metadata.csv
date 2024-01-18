@@ -1,0 +1,8 @@
+id,database_name,table_name,profileandclassification_ind,nlpcheck_ind,output_table,abfss_location
+1,clinician_services,Clinician_Demographic_Information,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/Clinician_Demographic_Information
+2,clinician_services,Clinician_Utilization,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/Clinician_Utilization
+3,clinician_services,ec_public_reporting,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/ec_public_reporting
+4,clinician_services,ec_score_file,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/ec_score_file
+5,clinician_services,Facility_Affiliation,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/Facility_Affiliation
+6,clinician_services,grp_public_reporting,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/grp_public_reporting
+7,clinician_services,grp_public_reporting_cahps,1,0,table_profiles_classifiers,abfss://ed48e609-f66b-4cc4-832c-588ba37d0047@onelake.dfs.fabric.microsoft.com/e50527ec-11eb-4319-9a37-6a3ea5c7f29a/Files/source_file_temp/grp_public_reporting_cahps
